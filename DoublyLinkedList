@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node{
+    int data;
+    struct node* next;
+    struct node* prev;
+};
+
+struct node* AddNode(int data){
+    struct node* node = (struct node*) malloc(sizeof(struct node)); 
+    node->data =data;
+    node->next = NULL;
+    node->prev = NULL;
+    return node;
+}
+
+void DisplayValue(struct node* node){
+    printf("%d\t",node->data);
+    return;
+}
+
+int GetRandom(double x){
+    if(x>100){
+       GetRandom(x/100); 
+    }
+    else
+    {
+    return x;
+    }
+}
+
+int main()
+{
+    printf("Hello World\n");
+   // struct node* nodeList = (struct node*) malloc(sizeof(struct node)); 
+    struct node* prev=NULL;
+    struct node* next=NULL;
+    struct node* start=NULL;
+    
+    for(int i=1;i<=10;i++)
+    {
+       struct node* node = AddNode(GetRandom(rand()));
+       if(prev!=NULL){
+           prev->next = node;
+       }
+       else{
+           start=node;
+       }
+      node->prev= prev;
+      prev=node;
+    } 
+    
+    struct node* node=NULL;
+    node = prev;
+    while(node!=NULL)
+    {
+        DisplayValue(node);
+        node = node->prev;
+    }
+   
+    return 0;
+}
